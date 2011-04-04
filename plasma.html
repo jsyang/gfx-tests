@@ -8,16 +8,6 @@ Mar. 12, 2011
 */
 
 // Simplify ImgData manipulation with these functions.
-    function get(imgdata,i)
-    {
-        return [
-            imgdata.data[i+0],
-            imgdata.data[i+1],
-            imgdata.data[i+2],
-            imgdata.data[i+3]
-        ];
-    }
-    
     function set(imgdata,i,RGB)
     {
         imgdata.data[i+0]=RGB[0];
@@ -25,20 +15,6 @@ Mar. 12, 2011
         imgdata.data[i+2]=RGB[2];
         imgdata.data[i+3]=RGB[3]?RGB[3]:0xff;
     }
-    
-    function eq(RGB1,RGB2)
-    {
-        var equal=true;
-        for(var i in RGB1)
-        {
-            equal &= RGB1[i]==RGB2[i];
-        }
-        return equal;
-    }
-
-// Start animating when we're done setting up the canvas
-var g=new gLayer([],[256,256],function(){setInterval("drawPlasma(g.c)",20);});
-
 
 var plasmaPalette=[];
 var paletteShift=0;
@@ -51,7 +27,6 @@ for(var i=256; i-->0;)
         (128 + 128 * Math.sin(3.1415 * i / 128))
     ]);
 }
-
 
 function drawPlasma(ctx)
 {
@@ -68,12 +43,12 @@ function drawPlasma(ctx)
         }
     }
     
-    // Draw the new plasma texture
     ctx.putImageData(ID_plasma,0,0);
     
-    // Cycle through different color values
     paletteShift+=3;
     if(paletteShift>256) paletteShift=0;
 }
+
+var g=new gLayer([],[256,256],function(){setInterval("drawPlasma(g.c)",20);});
 
 </script></html>
